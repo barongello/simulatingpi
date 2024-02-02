@@ -1,14 +1,14 @@
 let seed = new Date().getTime();
 let circleRadius = 160;
 let circleSize = circleRadius * 2;
-let pnrgHits = 0;
-let pnrgPi = 0;
+let prngHits = 0;
+let prgnPi = 0;
 let pointsPerCycle = 1;
 let pointsPerCycleP;
 let pointsPerCycleS;
 let outputP;
-let qnrgHits = 0;
-let qnrgPi = 0;
+let qrngHits = 0;
+let qrngPi = 0;
 let index = 1;
 
 function halton(i, b) {
@@ -24,7 +24,7 @@ function halton(i, b) {
   return r;
 }
 
-function PNRG() {
+function PRNG() {
   let x = map(Math.random(), 0, 1, -1, 1);
   let y = map(Math.random(), 0, 1, -1, 1);
   let d = Math.sqrt(x * x + y * y);
@@ -44,7 +44,7 @@ function PNRG() {
   return r;
 }
 
-function QNRG() {
+function QRNG() {
   let x = map(halton(seed + index, 2), 0, 1, -1, 1);
   let y = map(halton(seed + index, 3), 0, 1, -1, 1);
   let d = Math.sqrt(x * x + y * y);
@@ -76,14 +76,14 @@ function setup() {
     pointsPerCycleP.html('Points per cycle: ' + pointsPerCycle);
   });
 
-  let html = 'PNRG Pi = 0<br />';
+  let html = 'PRNG Pi = 0<br />';
 
-  html += 'QNRG Pi = 0<br />';
+  html += 'QRNG Pi = 0<br />';
   html += '<br />';
   html += 'Points = 0<br />';
   html += '<br />';
-  html += 'PNRG Hits = 0<br />';
-  html += 'QNRG Hits = 0';
+  html += 'PRNG Hits = 0<br />';
+  html += 'QRNG Hits = 0';
 
   outputP = createP(html);
 
@@ -99,29 +99,29 @@ function setup() {
 
 function draw() {
   for (let i = 0; i < pointsPerCycle; ++i) {
-    if (PNRG()) {
-      ++pnrgHits;
+    if (PRNG()) {
+      ++prngHits;
 
-      pnrgPi = 4 * pnrgHits / index;
+      prngPi = 4 * prngHits / index;
     }
 
-    if (QNRG()) {
-      ++qnrgHits;
+    if (QRNG()) {
+      ++qrngHits;
 
-      qnrgPi = 4 * qnrgHits / index;
+      qrngPi = 4 * qrngHits / index;
     }
 
     ++index;
   }
 
-  let html = 'PNRG Pi = ' + pnrgPi + '<br />';
+  let html = 'PRNG Pi = ' + prngPi + '<br />';
 
-  html += 'QNRG Pi = ' + qnrgPi + '<br />';
+  html += 'QRNG Pi = ' + qrngPi + '<br />';
   html += '<br />';
   html += 'Points = ' + (index - 1) + '<br />';
   html += '<br />';
-  html += 'PNRG Hits = ' + pnrgHits + '<br />';
-  html += 'QNRG Hits = ' + qnrgHits;
+  html += 'PRNG Hits = ' + prngHits + '<br />';
+  html += 'QRNG Hits = ' + qrngHits;
 
   outputP.html(html);
 }
